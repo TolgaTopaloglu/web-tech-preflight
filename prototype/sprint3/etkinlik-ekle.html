@@ -13,20 +13,21 @@
     <nav>
       <a href="etkinlikler.html">Ana Sayfa</a>
       <a href="etkinlikler.html">Etkinlikler</a>
-      <a href="etkinlik-ekle.html">Ekle</a>
+      <a href="etkinlik-ekle.html" aria-current="page">Ekle</a>
     </nav>
   </header>
 
   <main>
+    <p class="yardim">Yıldızlı (*) alanlar zorunludur. Bu sprintte form veri kaydetmez; sonuç aşağıda gösterilir.</p>
     <form id="etkinlik-formu" novalidate>
       <div class="alan">
-        <label for="ad">Etkinlik adı</label>
-        <input type="text" id="ad" name="ad" aria-describedby="ad-hata">
+        <label for="ad">Etkinlik adı <span class="zorunlu" aria-hidden="true">*</span></label>
+        <input type="text" id="ad" name="ad" placeholder="Örn. Kariyer Günleri" aria-describedby="ad-hata">
         <span class="hata" id="ad-hata"></span>
       </div>
 
       <div class="alan">
-        <label for="kategori">Kategori</label>
+        <label for="kategori">Kategori <span class="zorunlu" aria-hidden="true">*</span></label>
         <select id="kategori" name="kategori" aria-describedby="kategori-hata">
           <option value="">Seçiniz</option>
           <option value="Seminer">Seminer</option>
@@ -37,20 +38,20 @@
       </div>
 
       <div class="alan">
-        <label for="tarih">Tarih</label>
+        <label for="tarih">Tarih <span class="zorunlu" aria-hidden="true">*</span></label>
         <input type="date" id="tarih" name="tarih" aria-describedby="tarih-hata">
         <span class="hata" id="tarih-hata"></span>
       </div>
 
       <div class="alan">
-        <label for="saat">Saat</label>
+        <label for="saat">Saat <span class="zorunlu" aria-hidden="true">*</span></label>
         <input type="time" id="saat" name="saat" aria-describedby="saat-hata">
         <span class="hata" id="saat-hata"></span>
       </div>
 
       <div class="alan">
-        <label for="yer">Yer</label>
-        <input type="text" id="yer" name="yer" aria-describedby="yer-hata">
+        <label for="yer">Yer <span class="zorunlu" aria-hidden="true">*</span></label>
+        <input type="text" id="yer" name="yer" placeholder="Örn. A Blok Konferans Salonu" aria-describedby="yer-hata">
         <span class="hata" id="yer-hata"></span>
       </div>
 

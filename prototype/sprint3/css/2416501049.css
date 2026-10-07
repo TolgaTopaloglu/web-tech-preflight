@@ -66,6 +66,22 @@ nav a:focus-visible {
   text-decoration: underline;
 }
 
+nav a[aria-current="page"] {
+  background: #fff;
+  color: var(--renk-ana);
+  border-radius: var(--kose);
+  padding: 0.5rem 0.75rem;
+  font-weight: bold;
+}
+
+.yardim {
+  margin-top: 0;
+}
+
+.zorunlu {
+  color: var(--renk-hata);
+}
+
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -104,8 +120,32 @@ section > article {
   padding: var(--bosluk-m);
 }
 
+section > article {
+  border-top: 4px solid var(--renk-ana);
+}
+
 section > article h3 {
-  margin-top: 0;
+  margin: 0 0 0.5rem 0;
+}
+
+section > article p {
+  margin: 0.25rem 0;
+}
+
+section > article > a {
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+.rozet {
+  display: inline-block;
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--renk-ana) 14%, #fff);
+  color: var(--renk-ana);
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
 }
 
 section > article a {
@@ -130,18 +170,40 @@ section > article a:focus-visible {
   margin: 0 0 var(--bosluk-m) 0;
 }
 
-.detay-karti > dl {
+.kunye {
+  background: #fff;
+  border: 1px solid var(--renk-ana);
+  border-radius: var(--kose);
+  padding: var(--bosluk-m);
+  margin-bottom: var(--bosluk-m);
+}
+
+.kunye h2,
+.aciklama h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.kunye dl {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 0.25rem var(--bosluk-m);
-  margin: 0 0 var(--bosluk-m) 0;
+  margin: 0;
 }
 
-.detay-karti > dl dt {
+.kunye dt {
   font-weight: bold;
 }
 
-.detay-karti > dl dd {
+.kunye dd {
+  margin: 0;
+}
+
+.aciklama {
+  margin-bottom: var(--bosluk-m);
+}
+
+.aciklama p {
   margin: 0;
 }
 
@@ -153,11 +215,20 @@ section > article a:focus-visible {
 
 .eylemler a,
 .hata-kutusu a {
-  color: var(--renk-ana);
-  font-weight: bold;
   display: inline-flex;
   align-items: center;
   min-height: 44px;
+  padding: 0.5rem 1.25rem;
+  background: var(--renk-ana);
+  color: #fff;
+  border-radius: var(--kose);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.eylemler a:hover,
+.hata-kutusu a:hover {
+  filter: brightness(1.1);
 }
 
 @media (min-width: 700px) {
@@ -174,8 +245,8 @@ section > article a:focus-visible {
     grid-row: 1 / span 4;
   }
 
-  .detay-karti > dl,
-  .detay-karti > p,
+  .detay-karti > .kunye,
+  .detay-karti > .aciklama,
   .detay-karti > .eylemler {
     grid-column: 2;
   }

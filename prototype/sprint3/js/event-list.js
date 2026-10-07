@@ -5,7 +5,11 @@ const list = document.querySelector("#etkinlik-listesi");
 function createCard(event) {
   return `<article class="kart">
     <h3>${event.title}</h3>
-    <p>${event.category} · ${formatDate(event.date)}</p>
+    <span class="rozet">${event.category}</span>
+    <p>Tarih: ${formatDate(event.date)}, ${event.time}</p>
+    <p>Yer: ${event.location}</p>
+    <p>Kontenjan: ${event.capacity} kişi</p>
+    <p>${event.description}</p>
     <a href="etkinlik-detay.html?id=${event.id}">Detayları gör →</a>
   </article>`;
 }

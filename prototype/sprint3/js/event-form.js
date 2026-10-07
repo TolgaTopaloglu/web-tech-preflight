@@ -77,13 +77,13 @@ function gonder(e) {
   }
 
   mesaj.className = "basari-kutusu";
-  mesaj.innerHTML = `<p>${guncelleme ? "Etkinlik güncellendi." : "Etkinlik eklendi."}</p><pre></pre>`;
+  mesaj.innerHTML = `<p>${guncelleme ? "Etkinlik güncellendi" : "Etkinlik oluşturuldu"} (bu sprintte kaydedilmedi):</p><pre></pre>`;
   mesaj.querySelector("pre").textContent = JSON.stringify(data, null, 2);
 }
 
 if (guncelleme && !mevcut) {
   form.outerHTML = `<div class="hata-kutusu">
-    <p>Güncellenecek etkinlik bulunamadı. Adresteki id geçersiz veya eksik.</p>
+    <p>Güncellenecek etkinlik açılamadı. Önce Etkinlikler sayfasından bir etkinlik seçin; detay sayfasındaki "Bu etkinliği güncelle" butonunu kullanın.</p>
     <a href="etkinlikler.html">Etkinliklere git</a>
   </div>`;
 } else {
