@@ -56,16 +56,19 @@ function App() {
   const selected =
     selectedId !== null ? findEventById(events, selectedId) : undefined;
 
-  let title = "Kampüs Etkinlikleri";
-  if (page === "events") title = "Tüm Etkinlikler";
-  if (page === "add") title = "Etkinlik Ekle";
-  if (page === "update") title = "Etkinlik Güncelle";
-  if (page === "detail") title = selected ? selected.title : "Etkinlik bulunamadı";
+  let heading = "Kampüs Etkinlikleri";
+  if (page === "events") heading = "Tüm Etkinlikler";
+  if (page === "add") heading = "Etkinlik Ekle";
+  if (page === "update") heading = "Etkinlik Güncelle";
+  if (page === "detail") {
+    heading = selected ? selected.title : "Etkinlik bulunamadı";
+  }
+
+  const title = page === "home" ? "Ana Sayfa" : heading;
 
   useEffect(() => {
-    document.title =
-      page === "home" ? title : `Kampüs Etkinlikleri — ${title}`;
-  }, [page, title]);
+    document.title = `Kampüs Etkinlikleri — ${title}`;
+  }, [title]);
 
   function renderCard(event: CampusEvent) {
     return (
@@ -88,7 +91,7 @@ function App() {
   return (
     <>
       <header>
-        <h1>{title}</h1>
+        <h1>{heading}</h1>
         <nav>
           {menu.map((item) => (
             <a
