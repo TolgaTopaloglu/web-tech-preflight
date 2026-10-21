@@ -35,7 +35,7 @@ table {
 }
 
 /* Header / nav */
-header {
+.site-ust {
   background: var(--renk-ana);
   color: #fff;
   padding: var(--bosluk-m);
@@ -267,7 +267,8 @@ form.filtre {
   }
 }
 
-#sonuc {
+#sonuc,
+.sonuc {
   margin: 0 0 var(--bosluk-m) 0;
   font-weight: bold;
 }
@@ -376,4 +377,8 @@ form button:hover {
 .detay-karti.afissiz > .aciklama,
 .detay-karti.afissiz > .eylemler {
   grid-column: 1;
+}
+
+header p {
+  margin: 0 0 var(--bosluk-m) 0;
 }
