@@ -9,6 +9,7 @@
   --renk-basari: #1b6e3a;
   --font: "Lucida Console", monospace;
   --bosluk-m: 1rem;
+  --bosluk-s: 0.5rem;
   --kose: 8px;
 }
 
@@ -344,7 +345,7 @@ form [aria-invalid="true"] {
   background: color-mix(in srgb, var(--renk-hata) 8%, #fff);
 }
 
-form .hata {
+form .hata-metni {
   display: block;
   min-height: 1.25rem;
   margin-top: 0.25rem;
@@ -381,4 +382,99 @@ form button:hover {
 
 header p {
   margin: 0 0 var(--bosluk-m) 0;
+}
+
+/* Yönetim tablosu ve düğmeler */
+.buton {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.5rem 1.25rem;
+  background: var(--renk-ana);
+  color: #fff;
+  border: none;
+  border-radius: var(--kose);
+  font: inherit;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.buton:hover {
+  filter: brightness(1.1);
+}
+
+.buton-sil {
+  background: var(--renk-hata);
+}
+
+.tablo {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--bosluk-m);
+  background: #fff;
+}
+
+.tablo th,
+.tablo td {
+  padding: var(--bosluk-s) var(--bosluk-m);
+  text-align: left;
+  border-bottom: 1px solid color-mix(in srgb, var(--renk-ana) 25%, #fff);
+}
+
+.tablo th {
+  background: var(--renk-ana);
+  color: #fff;
+}
+
+.islemler {
+  display: flex;
+  gap: var(--bosluk-s);
+}
+
+@media (max-width: 699px) {
+  .tablo thead {
+    display: none;
+  }
+
+  .tablo tr {
+    display: block;
+    border: 1px solid color-mix(in srgb, var(--renk-ana) 25%, #fff);
+    border-radius: var(--kose);
+    margin-bottom: var(--bosluk-m);
+  }
+
+  .tablo td {
+    display: block;
+    border-bottom: none;
+  }
+
+  .tablo td[data-baslik]::before {
+    content: attr(data-baslik) ": ";
+    font-weight: 700;
+  }
+}
+
+/* Giriş, kayıt ve şifre sayfaları */
+.mesaj {
+  margin: 0 0 var(--bosluk-m) 0;
+  padding: var(--bosluk-m);
+  border-radius: var(--kose);
+}
+
+.mesaj-basari {
+  border: 1px solid var(--renk-basari);
+  background: color-mix(in srgb, var(--renk-basari) 8%, #fff);
+  color: var(--renk-basari);
+  font-weight: bold;
+}
+
+.form-linkler {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bosluk-m);
+}
+
+.form-linkler a {
+  color: var(--renk-ana);
 }

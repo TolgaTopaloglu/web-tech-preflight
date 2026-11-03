@@ -1,51 +1,44 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { matchPath, Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
-import { events } from "./data/events";
-import type { Category } from "./types/campus-event";
-import type { PageName } from "./types/page";
-import {
-  filterByCategory,
-  findEventById,
-  searchEvents,
-} from "./utils/filter-events";
 import Header from "./components/layout/Header";
 import Navigation from "./components/layout/Navigation";
 import Footer from "./components/layout/Footer";
-import EventList from "./components/events/EventList";
-import EventFilter from "./components/events/EventFilter";
-import EventDetail from "./components/events/EventDetail";
-import EventForm from "./components/forms/EventForm";
+import { useEvents } from "./context/EventsContext";
+import { findEventById } from "./utils/filter-events";
+import HomePage from "./pages/HomePage";
+import EventsPage from "./pages/EventsPage";
+import EventDetailPage from "./pages/EventDetailPage";
+import AdminPage from "./pages/AdminPage";
+import AddEventPage from "./pages/AddEventPage";
+import EditEventPage from "./pages/EditEventPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import NotFoundPage from "./pages/NotFoundPage";
+
+const pageTitles: Record<string, string> = {
+  "/": "Ana Sayfa",
+  "/events": "Tüm Etkinlikler",
+  "/admin": "Etkinlik Yönetimi",
+  "/admin/new": "Etkinlik Ekle",
+  "/login": "Giriş Yap",
+  "/register": "Kayıt Ol",
+  "/forgot-password": "Şifremi Unuttum",
+};
 
 function App() {
-  const [page, setPage] = useState<PageName>("home");
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [searchText, setSearchText] = useState("");
-  const [category, setCategory] = useState<Category | "">("");
+  const { pathname } = useLocation();
+  const { events } = useEvents();
 
-  function go(next: PageName, id: string | null = null) {
-    setPage(next);
-    setSelectedId(id);
-  }
+  const detailId = matchPath("/events/:id", pathname)?.params.id;
+  const editId = matchPath("/admin/:id/edit", pathname)?.params.id;
+  const detail = detailId ? findEventById(events, detailId) : undefined;
+  const edit = editId ? findEventById(events, editId) : undefined;
 
-  const upcoming = [...events]
-    .sort((a, b) => a.date.localeCompare(b.date))
-    .slice(0, 2);
-
-  const categories = [...new Set(events.map((e) => e.category))];
-  const filtered = filterByCategory(searchEvents(events, searchText), category);
-
-  const selected =
-    selectedId !== null ? findEventById(events, selectedId) : undefined;
-
-  let heading = "Kampüs Etkinlikleri";
-  if (page === "events") heading = "Tüm Etkinlikler";
-  if (page === "add") heading = "Etkinlik Ekle";
-  if (page === "update") heading = "Etkinlik Güncelle";
-  if (page === "detail") {
-    heading = selected ? selected.title : "Etkinlik bulunamadı";
-  }
-
-  const title = page === "home" ? "Ana Sayfa" : heading;
+  let title = pageTitles[pathname] ?? "Sayfa bulunamadı";
+  if (detailId) title = detail ? detail.title : "Sayfa bulunamadı";
+  if (editId) title = edit ? "Etkinlik Güncelle" : "Sayfa bulunamadı";
 
   useEffect(() => {
     document.title = `Kampüs Etkinlikleri — ${title}`;
@@ -55,85 +48,25 @@ function App() {
     <>
       <div className="site-ust">
         <Header
-          title={heading}
-          text={
-            page === "home"
-              ? "Fakültedeki seminer, atölye ve söyleşileri tek yerden takip edin."
-              : undefined
-          }
+          title={detail ? detail.title : "Kampüs Etkinlikleri"}
+          text="Fakültedeki seminer, atölye ve söyleşileri tek yerden takip edin."
         />
-        <Navigation current={page} onNavigate={go} />
+        <Navigation />
       </div>
 
       <main>
-        {page === "home" && (
-          <>
-            <h2>Yaklaşan 2 Etkinlik</h2>
-            <EventList
-              events={upcoming}
-              onShowDetail={(id) => go("detail", id)}
-            />
-            <div className="eylemler">
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  go("events");
-                }}
-              >
-                Tüm etkinlikleri gör →
-              </a>
-            </div>
-          </>
-        )}
-
-        {page === "events" && (
-          <>
-            <EventFilter
-              searchText={searchText}
-              category={category}
-              categories={categories}
-              onSearchChange={setSearchText}
-              onCategoryChange={setCategory}
-            />
-            {filtered.length > 0 && (
-              <p id="sonuc" aria-live="polite">
-                {filtered.length} etkinlik listeleniyor.
-              </p>
-            )}
-            <EventList
-              events={filtered}
-              onShowDetail={(id) => go("detail", id)}
-              emptyText="Aramanıza uygun etkinlik bulunamadı."
-            />
-          </>
-        )}
-
-        {page === "detail" &&
-          (selected ? (
-            <EventDetail
-              event={selected}
-              onBack={() => go("events")}
-              onEdit={(id) => go("update", id)}
-            />
-          ) : (
-            <div className="hata-kutusu">
-              <p>İstenen etkinlik bulunamadı. Listeden bir etkinlik seçin.</p>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  go("events");
-                }}
-              >
-                ← Listeye dön
-              </a>
-            </div>
-          ))}
-
-        {(page === "add" || page === "update") && (
-          <EventForm onSubmit={() => window.scrollTo(0, 0)} />
-        )}
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/events" element={<EventsPage />} />
+          <Route path="/events/:id" element={<EventDetailPage />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/admin/new" element={<AddEventPage />} />
+          <Route path="/admin/:id/edit" element={<EditEventPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
       </main>
 
       <Footer />
