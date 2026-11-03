@@ -38,7 +38,6 @@ npm run dev
 ```
 prototype/   S1-S3  HTML · CSS · JavaScript (referans)
 frontend/    S4-S6  Vite · TypeScript (strict) · React · React Router  ← yayınlanan ürün
-backend/     S7+    henüz başlanmadı
 ```
 
 Dosya ayrıntıları için [frontend/README.md](frontend/README.md).
