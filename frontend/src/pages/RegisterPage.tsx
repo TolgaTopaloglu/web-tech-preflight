@@ -20,7 +20,7 @@ function RegisterPage() {
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const found: RegisterErrors = {};
-    if (name.trim().length < 3) found.name = "Ad Soyad en az 3 karakter olmalı.";
+    if (name.trim().length < 3) found.name = "Ad soyad en az 3 karakter olmalı.";
     if (!email.includes("@")) found.email = "Geçerli bir e-posta girin.";
     if (password.length < 6) found.password = "Şifre en az 6 karakter olmalı.";
     if (password2 !== password) found.password2 = "Şifreler aynı değil.";
@@ -30,8 +30,11 @@ function RegisterPage() {
 
   return (
     <>
-      <h2 className="bolum-baslik">Kayıt Ol</h2>
-      {sent && <p className="mesaj mesaj-basari">Gerçek kayıt Sprint 10'da.</p>}
+      {sent && (
+        <p className="mesaj mesaj-basari">
+          Form geçerli. Gerçek kayıt Sprint 10'da eklenecek.
+        </p>
+      )}
       <form className="form" onSubmit={handleSubmit} noValidate>
         <div className="alan">
           <label htmlFor="name">Ad Soyad</label>

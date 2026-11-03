@@ -11,7 +11,6 @@ function AdminPage() {
 
   return (
     <>
-      <h2 className="bolum-baslik">Etkinlik Yönetimi</h2>
       <div className="eylemler">
         <Link to="/admin/new">+ Yeni etkinlik</Link>
       </div>

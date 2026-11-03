@@ -24,8 +24,11 @@ function LoginPage() {
 
   return (
     <>
-      <h2 className="bolum-baslik">Giriş Yap</h2>
-      {sent && <p className="mesaj mesaj-basari">Gerçek giriş Sprint 10'da.</p>}
+      {sent && (
+        <p className="mesaj mesaj-basari">
+          Form geçerli. Gerçek giriş Sprint 10'da eklenecek.
+        </p>
+      )}
       <form className="form" onSubmit={handleSubmit} noValidate>
         <div className="alan">
           <label htmlFor="email">E-posta</label>

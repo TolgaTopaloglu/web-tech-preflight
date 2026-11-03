@@ -17,7 +17,7 @@ export function validateEvent(data: EventFormData): EventFormErrors {
     capacity < 1 ||
     capacity > 1000
   )
-    errors.capacity = "1 ile 1000 arası tam sayı.";
+    errors.capacity = "Kontenjan 1 ile 1000 arasında bir tam sayı olmalı.";
 
   if (data.description.trim().length < 10)
     errors.description = "Açıklama en az 10 karakter olmalı.";

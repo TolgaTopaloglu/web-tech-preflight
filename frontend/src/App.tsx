@@ -18,7 +18,7 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 const pageTitles: Record<string, string> = {
-  "/": "Ana Sayfa",
+  "/": "Kampüs Etkinlikleri",
   "/events": "Tüm Etkinlikler",
   "/admin": "Etkinlik Yönetimi",
   "/admin/new": "Etkinlik Ekle",
@@ -27,30 +27,42 @@ const pageTitles: Record<string, string> = {
   "/forgot-password": "Şifremi Unuttum",
 };
 
+const pageTexts: Record<string, string> = {
+  "/": "Fakültedeki seminer, atölye ve söyleşileri tek yerden takip edin.",
+  "/events": "Ekim ayında kampüste düzenlenen etkinlikler.",
+};
+
 function App() {
-  const { pathname } = useLocation();
+  const location = useLocation();
   const { events } = useEvents();
 
-  const detailId = matchPath("/events/:id", pathname)?.params.id;
-  const editId = matchPath("/admin/:id/edit", pathname)?.params.id;
-  const detail = detailId ? findEventById(events, detailId) : undefined;
-  const edit = editId ? findEventById(events, editId) : undefined;
+  const path =
+    location.pathname.length > 1
+      ? location.pathname.replace(/\/+$/, "")
+      : location.pathname;
+  const eventId =
+    matchPath("/events/:id", path)?.params.id ??
+    matchPath("/admin/:id/edit", path)?.params.id;
+  const event = eventId ? findEventById(events, eventId) : undefined;
 
-  let title = pageTitles[pathname] ?? "Sayfa bulunamadı";
-  if (detailId) title = detail ? detail.title : "Sayfa bulunamadı";
-  if (editId) title = edit ? "Etkinlik Güncelle" : "Sayfa bulunamadı";
+  let title = pageTitles[path] ?? "Sayfa Bulunamadı";
+  let text: string | undefined = pageTexts[path];
+  if (eventId) {
+    title = event ? event.title : "Sayfa Bulunamadı";
+    text = event ? `${event.category} · ${event.location}` : undefined;
+  }
+
+  const tabTitle =
+    path === "/" ? "Kampüs Etkinlikleri" : `${title} — Kampüs Etkinlikleri`;
 
   useEffect(() => {
-    document.title = `Kampüs Etkinlikleri — ${title}`;
-  }, [title]);
+    document.title = tabTitle;
+  }, [tabTitle]);
 
   return (
     <>
       <div className="site-ust">
-        <Header
-          title={detail ? detail.title : "Kampüs Etkinlikleri"}
-          text="Fakültedeki seminer, atölye ve söyleşileri tek yerden takip edin."
-        />
+        <Header title={title} text={text} />
         <Navigation />
       </div>
 

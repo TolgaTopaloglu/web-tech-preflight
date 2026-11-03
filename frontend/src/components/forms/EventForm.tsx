@@ -30,121 +30,118 @@ function EventForm({ initialData, submitText, onSubmit }: EventFormProps) {
   }
 
   return (
-    <>
-      <p className="yardim">Yıldızlı (*) alanlar zorunludur.</p>
-      <form className="form" onSubmit={handleSubmit} noValidate>
-        <div className="alan">
-          <label htmlFor="title">
-            Etkinlik adı <span className="zorunlu">*</span>
-          </label>
-          <input
-            id="title"
-            name="title"
-            type="text"
-            maxLength={80}
-            placeholder="Örn. Kariyer Günleri"
-            value={data.title}
-            onChange={handleChange}
-            aria-invalid={errors.title ? true : undefined}
-          />
-          <span className="hata-metni">{errors.title}</span>
-        </div>
-        <div className="alan">
-          <label htmlFor="category">
-            Kategori <span className="zorunlu">*</span>
-          </label>
-          <select
-            id="category"
-            name="category"
-            value={data.category}
-            onChange={handleChange}
-            aria-invalid={errors.category ? true : undefined}
-          >
-            <option value="">Seçiniz</option>
-            {CATEGORIES.map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
-          </select>
-          <span className="hata-metni">{errors.category}</span>
-        </div>
-        <div className="alan">
-          <label htmlFor="date">
-            Tarih <span className="zorunlu">*</span>
-          </label>
-          <input
-            id="date"
-            name="date"
-            type="date"
-            value={data.date}
-            onChange={handleChange}
-            aria-invalid={errors.date ? true : undefined}
-          />
-          <span className="hata-metni">{errors.date}</span>
-        </div>
-        <div className="alan">
-          <label htmlFor="time">
-            Saat <span className="zorunlu">*</span>
-          </label>
-          <input
-            id="time"
-            name="time"
-            type="time"
-            value={data.time}
-            onChange={handleChange}
-            aria-invalid={errors.time ? true : undefined}
-          />
-          <span className="hata-metni">{errors.time}</span>
-        </div>
-        <div className="alan">
-          <label htmlFor="location">
-            Yer <span className="zorunlu">*</span>
-          </label>
-          <input
-            id="location"
-            name="location"
-            type="text"
-            placeholder="Örn. A Blok Konferans Salonu"
-            value={data.location}
-            onChange={handleChange}
-            aria-invalid={errors.location ? true : undefined}
-          />
-          <span className="hata-metni">{errors.location}</span>
-        </div>
-        <div className="alan">
-          <label htmlFor="capacity">
-            Kontenjan <span className="zorunlu">*</span>
-          </label>
-          <input
-            id="capacity"
-            name="capacity"
-            type="number"
-            min={1}
-            max={1000}
-            value={data.capacity}
-            onChange={handleChange}
-            aria-invalid={errors.capacity ? true : undefined}
-          />
-          <span className="hata-metni">{errors.capacity}</span>
-        </div>
-        <div className="alan">
-          <label htmlFor="description">
-            Açıklama <span className="zorunlu">*</span>
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            rows={5}
-            value={data.description}
-            onChange={handleChange}
-            aria-invalid={errors.description ? true : undefined}
-          />
-          <span className="hata-metni">{errors.description}</span>
-        </div>
-        <button type="submit">{submitText}</button>
-      </form>
-    </>
+    <form className="form" onSubmit={handleSubmit} noValidate>
+      <div className="alan">
+        <label htmlFor="title">
+          Etkinlik Adı
+        </label>
+        <input
+          id="title"
+          name="title"
+          type="text"
+          maxLength={80}
+          placeholder="Örn. Kariyer Günleri"
+          value={data.title}
+          onChange={handleChange}
+          aria-invalid={errors.title ? true : undefined}
+        />
+        <span className="hata-metni">{errors.title}</span>
+      </div>
+      <div className="alan">
+        <label htmlFor="category">
+          Kategori
+        </label>
+        <select
+          id="category"
+          name="category"
+          value={data.category}
+          onChange={handleChange}
+          aria-invalid={errors.category ? true : undefined}
+        >
+          <option value="">Seçiniz</option>
+          {CATEGORIES.map((c) => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
+        </select>
+        <span className="hata-metni">{errors.category}</span>
+      </div>
+      <div className="alan">
+        <label htmlFor="date">
+          Tarih
+        </label>
+        <input
+          id="date"
+          name="date"
+          type="date"
+          value={data.date}
+          onChange={handleChange}
+          aria-invalid={errors.date ? true : undefined}
+        />
+        <span className="hata-metni">{errors.date}</span>
+      </div>
+      <div className="alan">
+        <label htmlFor="time">
+          Saat
+        </label>
+        <input
+          id="time"
+          name="time"
+          type="time"
+          value={data.time}
+          onChange={handleChange}
+          aria-invalid={errors.time ? true : undefined}
+        />
+        <span className="hata-metni">{errors.time}</span>
+      </div>
+      <div className="alan">
+        <label htmlFor="location">
+          Yer
+        </label>
+        <input
+          id="location"
+          name="location"
+          type="text"
+          placeholder="Örn. A Blok Konferans Salonu"
+          value={data.location}
+          onChange={handleChange}
+          aria-invalid={errors.location ? true : undefined}
+        />
+        <span className="hata-metni">{errors.location}</span>
+      </div>
+      <div className="alan">
+        <label htmlFor="capacity">
+          Kontenjan
+        </label>
+        <input
+          id="capacity"
+          name="capacity"
+          type="number"
+          min={1}
+          max={1000}
+          value={data.capacity}
+          onChange={handleChange}
+          aria-invalid={errors.capacity ? true : undefined}
+        />
+        <span className="hata-metni">{errors.capacity}</span>
+      </div>
+      <div className="alan">
+        <label htmlFor="description">
+          Açıklama
+        </label>
+        <textarea
+          id="description"
+          name="description"
+          rows={5}
+          value={data.description}
+          onChange={handleChange}
+          aria-invalid={errors.description ? true : undefined}
+        />
+        <span className="hata-metni">{errors.description}</span>
+      </div>
+      <button type="submit">{submitText}</button>
+    </form>
   );
 }
 
