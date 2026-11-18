@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Kampüs Etkinlikleri REST API (Express, bellek içi veri)",
+  "description": "Kampüs Etkinlikleri REST API (Express, MongoDB, Mongoose)",
   "main": "src/server.js",
   "type": "module",
   "scripts": {
