@@ -1,20 +1,33 @@
+import mongoose from "mongoose";
 import { events } from "../data/events.js";
+import { Event } from "../models/event-model.js";
 
 // GET /events (?category=Atölye isteğe bağlı)
-export function getEvents(req, res) {
-  const { category } = req.query;
-  const list = category
-    ? events.filter((e) => e.category === category)
-    : events;
-  res.json(list);
+export async function getEvents(req, res, next) {
+  try {
+    const filter = req.query.category ? { category: req.query.category } : {};
+    const list = await Event.find(filter).sort({ date: 1 });
+    res.json(list);
+  } catch (err) {
+    next(err);
+  }
 }
 
 // GET /events/:id
-export function getEventById(req, res) {
-  const event = events.find((e) => e.id === req.params.id);
-  if (!event)
-    return res.status(404).json({ error: { message: "Event not found" } });
-  res.json(event);
+export async function getEventById(req, res, next) {
+  try {
+    // Biçimi bozuk id CastError fırlatmasın, 404 olsun
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return res.status(404).json({ error: { message: "Event not found" } });
+    }
+    const event = await Event.findById(req.params.id);
+    if (!event) {
+      return res.status(404).json({ error: { message: "Event not found" } });
+    }
+    res.json(event);
+  } catch (err) {
+    next(err);
+  }
 }
 
 // POST /events
