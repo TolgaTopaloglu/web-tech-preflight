@@ -2,9 +2,15 @@
   "info": {
     "_postman_id": "b6f0c1a4-3e52-4d1b-9a7e-2416501049a7",
     "name": "Kampüs API",
-    "description": "Sprint 7: Express REST API için 6 istek. Adres hep http://localhost:3000 ile başlar.",
+    "description": "Sprint 8: MongoDB'ye bağlı REST API için 6 istek. Önce npm run seed ve npm run dev çalıştırılır; istekler sırayla gönderilir. 2. istek listedeki ilk _id'yi eventId değişkenine yazar, 3. istek onu kullanır.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
+  "variable": [
+    {
+      "key": "eventId",
+      "value": ""
+    }
+  ],
   "item": [
     {
       "name": "1 Health",
@@ -46,7 +52,10 @@
             "type": "text/javascript",
             "exec": [
               "pm.test(\"200 OK\", () => pm.response.to.have.status(200));",
-              "pm.test(\"yanıt bir dizi\", () => pm.expect(pm.response.json()).to.be.an(\"array\"));"
+              "const list = pm.response.json();",
+              "pm.test(\"yanıt bir dizi\", () => pm.expect(list).to.be.an(\"array\"));",
+              "pm.test(\"kayıtlarda _id var\", () => pm.expect(list[0]._id).to.be.a(\"string\"));",
+              "pm.collectionVariables.set(\"eventId\", list[0]._id);"
             ]
           }
         }
@@ -73,7 +82,7 @@
             "type": "text/javascript",
             "exec": [
               "pm.test(\"200 OK\", () => pm.response.to.have.status(200));",
-              "pm.test(\"id event-2\", () => pm.expect(pm.response.json().id).to.eql(\"event-2\"));"
+              "pm.test(\"istenen kayıt döndü\", () => pm.expect(pm.response.json()._id).to.eql(pm.collectionVariables.get(\"eventId\")));"
             ]
           }
         }
@@ -82,11 +91,11 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3000/events/event-2",
+          "raw": "http://localhost:3000/events/{{eventId}}",
           "protocol": "http",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["events", "event-2"]
+          "path": ["events", "{{eventId}}"]
         }
       },
       "response": []
@@ -127,7 +136,11 @@
             "type": "text/javascript",
             "exec": [
               "pm.test(\"201 Created\", () => pm.response.to.have.status(201));",
-              "pm.test(\"yeni id döndü\", () => pm.expect(pm.response.json().id).to.be.a(\"string\"));"
+              "pm.test(\"_id ve createdAt döndü\", () => {",
+              "  const body = pm.response.json();",
+              "  pm.expect(body._id).to.be.a(\"string\");",
+              "  pm.expect(body.createdAt).to.be.a(\"string\");",
+              "});"
             ]
           }
         }
