@@ -5,10 +5,7 @@ import { Event } from "./models/event-model.js";
 import { seedEvents } from "./data/seed-events.js";
 
 await connectDatabase();
-
-// Önce sil: tekrar çalışınca kayıtlar katlanmasın
 await Event.deleteMany({});
 const created = await Event.insertMany(seedEvents);
 console.log(`${created.length} etkinlik eklendi`);
-
 await mongoose.disconnect();
