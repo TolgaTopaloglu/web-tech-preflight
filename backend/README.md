@@ -71,7 +71,7 @@ Biçimi geçersiz id (`/events/yok`) ve bulunamayan id ikisi de 404 döner. Bekl
 `POST /events` gövdesi → 201 ve `_id`, `createdAt`, `updatedAt` ile yeni kayıt
 
 ```json
-{ "title": "REST API Test Atölyesi", "category": "Atölye", "date": "2026-12-12", "capacity": 20 }
+{ "title": "Git Atölyesi", "category": "Atölye", "date": "2026-12-01", "time": "14:00", "location": "Bilgisayar Laboratuvarı 1", "capacity": 30, "description": "Git ve GitHub ile ilk adımlar." }
 ```
 
 `POST /events` gövdesinde yalnızca `title` varsa → 400
@@ -92,4 +92,4 @@ Tanımsız bir adres → 404 `{ "error": { "message": "Route not found" } }`
 - `src/controllers/event-controller.js` - isteği işler, modeli kullanır, yanıtı döndürür.
 - `src/data/seed-events.js` - 6 örnek etkinlik.
 - `src/seed.js` - `npm run seed` ile veritabanını doldurur.
-- `requests/kampus-api.json` - Postman koleksiyonu (6 istek). 2. istek ilk `_id`'yi `eventId` değişkenine yazar, 3. istek onu kullanır; bu yüzden sırayla çalıştırılır.
+- `requests/kampus-api.json` - Postman koleksiyonu (6 istek). `npm run seed` kimlikleri değiştirir; 3. istekteki `_id`'yi `GET /events` listesinden kopyalayıp güncelle.
