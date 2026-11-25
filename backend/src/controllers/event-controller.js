@@ -1,6 +1,13 @@
 import mongoose from "mongoose";
 import { Event } from "../models/event-model.js";
 
+function notFound(res) {
+  return res.status(404)
+    .json({ error: { message: "Event not found" } });
+}
+
+const KORUNAN_ALANLAR = ["_id", "createdAt", "updatedAt", "__v"];
+
 export async function getEvents(req, res, next) {
   try {
     const filter = req.query.category
@@ -14,15 +21,9 @@ export async function getEvents(req, res, next) {
 
 export async function getEventById(req, res, next) {
   try {
-    if (!mongoose.isValidObjectId(req.params.id)) {
-      return res.status(404)
-        .json({ error: { message: "Event not found" } });
-    }
+    if (!mongoose.isValidObjectId(req.params.id)) return notFound(res);
     const event = await Event.findById(req.params.id);
-    if (!event) {
-      return res.status(404)
-        .json({ error: { message: "Event not found" } });
-    }
+    if (!event) return notFound(res);
     res.json(event);
   } catch (err) {
     next(err);
@@ -35,6 +36,33 @@ export async function createEvent(req, res, next) {
     res.status(201).json(event);
   } catch (err) {
     if (err.name === "ValidationError") {
+      return res.status(400)
+        .json({ error: { message: err.message } });
+    }
+    next(err);
+  }
+}
+
+export async function updateEvent(req, res, next) {
+  try {
+    if (!mongoose.isValidObjectId(req.params.id)) return notFound(res);
+    const body = req.body ?? {};
+    if (Object.keys(body).length === 0) {
+      return res.status(400).json({ error: { message: "Body is empty" } });
+    }
+    const korunan = Object.keys(body).filter((k) => KORUNAN_ALANLAR.includes(k));
+    if (korunan.length > 0) {
+      return res.status(400)
+        .json({ error: { message: `${korunan.join(", ")} cannot be changed` } });
+    }
+    const event = await Event.findByIdAndUpdate(req.params.id, body, {
+      returnDocument: "after", // güncellenmiş kaydı döndür
+      runValidators: true, // schema kuralları burada da çalışsın
+    });
+    if (!event) return notFound(res);
+    res.json(event);
+  } catch (err) {
+    if (err.name === "ValidationError" || err.name === "CastError") {
       return res.status(400)
         .json({ error: { message: err.message } });
     }
