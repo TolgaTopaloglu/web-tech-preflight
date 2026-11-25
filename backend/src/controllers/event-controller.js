@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { Event } from "../models/event-model.js";
+import { todayStart } from "../utils/date.js";
 
 function notFound(res) {
   return res.status(404)
@@ -19,6 +20,17 @@ export async function getEvents(req, res, next) {
       filter.title = { $regex: guvenli, $options: "i" };
     }
     const events = await Event.find(filter).sort({ date: 1 });
+    res.json(events);
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getUpcomingEvents(req, res, next) {
+  try {
+    const events = await Event
+      .find({ date: { $gte: todayStart() } })
+      .sort({ date: 1, time: 1 });
     res.json(events);
   } catch (err) {
     next(err);
