@@ -3,7 +3,7 @@ export const seedEvents = [
     title: "Açık Kaynak Dünyasına İlk Adım",
     category: "Seminer",
     capacity: 90,
-    date: "2026-11-18",
+    date: "18-11-2026",
     time: "13:30",
     location: "Mühendislik Fakültesi Amfi 2",
     description:
@@ -13,7 +13,7 @@ export const seedEvents = [
     title: "Linux Komut Satırı Atölyesi",
     category: "Atölye",
     capacity: 25,
-    date: "2026-11-20",
+    date: "20-11-2026",
     time: "10:00",
     location: "Bilgisayar Laboratuvarı 4",
     description:
@@ -23,7 +23,7 @@ export const seedEvents = [
     title: "Girişimci Mezun Söyleşisi: İlk Ürünümü Nasıl Çıkardım",
     category: "Söyleşi",
     capacity: 120,
-    date: "2026-11-25",
+    date: "25-11-2026",
     time: "15:00",
     location: "Kültür Merkezi Salon B",
     description:
@@ -33,7 +33,7 @@ export const seedEvents = [
     title: "Kampüs Hackathon 24 Saat",
     category: "Yarışma",
     capacity: 60,
-    date: "2026-12-05",
+    date: "05-12-2026",
     time: "09:00",
     location: "Teknoloji Geliştirme Bölgesi Salonu",
     description:
@@ -43,7 +43,7 @@ export const seedEvents = [
     title: "Veri Görselleştirme ile Hikâye Anlatımı",
     category: "Atölye",
     capacity: 30,
-    date: "2026-12-09",
+    date: "09-12-2026",
     time: "14:00",
     location: "Fen Fakültesi Lab 3",
     description:
@@ -53,7 +53,7 @@ export const seedEvents = [
     title: "Akademik Yazım ve Kaynak Gösterme Semineri",
     category: "Seminer",
     capacity: 70,
-    date: "2026-12-16",
+    date: "16-12-2026",
     time: "11:00",
     location: "Merkez Kütüphane Konferans Salonu",
     description:
