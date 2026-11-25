@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createEvent, getEventById, getEvents,
+import { createEvent, deleteEvent, getEventById, getEvents,
   updateEvent,
 } from "../controllers/event-controller.js";
 
@@ -8,5 +8,6 @@ router.get("/", getEvents);
 router.get("/:id", getEventById);
 router.post("/", createEvent);
 router.patch("/:id", updateEvent);
+router.delete("/:id", deleteEvent);
 
 export default router;
